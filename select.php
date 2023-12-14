@@ -19,7 +19,14 @@
             $sql = 'SELECT id, name FROM users';
 
             // SQL文を実行する
-            $pdo->query($sql);
+            $stmt = $pdo->query($sql);
+
+            // SQL文の実行結果を配列で取得する
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // 配列の中身を出力する
+            print_r($results);
+
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
