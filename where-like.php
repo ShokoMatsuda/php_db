@@ -28,6 +28,10 @@
     <title>PHP+DB</title>
 </head>
 <body>
+    <form action="where-like.php" method="get" class="search-form">
+        <input type="text" placeholder="ふりがなで検索" name="keyword">
+        <input type="submit" value="検索">
+    </form>
 <table>
     <tr>
         <th>氏名</th>
