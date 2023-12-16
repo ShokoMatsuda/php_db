@@ -1,3 +1,37 @@
+<?php
+$dsn = 'mysql:dbname=php_db;host=localhost;charset=utf8mb4';
+$user = 'root';
+$password = 'root';
+
+// submitパラメータの値が存在するとき（「登録」ボタンを押したとき）の処理
+if (isset($_POST['submit'])) {
+    try {
+        $pdo = new PDO($dsn, $user, $password);
+
+        // 動的に変わる値をプレースホルダに置き換えたINSERT文をあらかじめ用意する
+        $sql = '
+                INSERT INTO users (name, furigana, email, age, address)
+                VALUES (:name, :furigana, :email, :age, :address)
+                ';
+                $stmt = $pdo->prepare($sql);
+
+        // bindValue()メソッドを使って実際の値をプレースホルダにバインドする（割り当てる）
+        $stmt->bindValue(':name', $_POST['user_name'], PDO::PARAM_STR);
+        $stmt->bindValue(':furigana', $_POST['user_furigana'], PDO::PARAM_STR);
+        $stmt->bindValue(':email', $_POST['user_email'], PDO::PARAM_STR);
+        $stmt->bindValue(':age', $_POST['user_age'], PDO::PARAM_INT);
+        $stmt->bindValue(':address', $_POST['user_address'], PDO::PARAM_STR);
+
+        // SQL文を実行する
+        $stmt->execute();
+
+        // header()関数を使ってselect.phpにリダイレクトさせる
+        header('Location: select.php');
+    } catch (PDOException $e) {
+        exit($e->getMessage());
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
