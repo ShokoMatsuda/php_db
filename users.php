@@ -32,6 +32,12 @@
     <tr>
         <th>ID</th>
         <th>氏名</th>
+        <th>ふりがな</th>
+        <th>メールアドレス</th>
+        <th>年齢</th>
+        <th>住所</th>
+        <th>編集</th>
+        <th>削除</th>
     </tr>
     <?php
     // 配列の中身を順番に取り出し、表形式で出力する
@@ -45,6 +51,7 @@
        <td>{$result['age']}</td>
        <td>{$result['address']}</td>
        <td><a href='update.php?id={$result['id']}'>編集</a></td>
+       <td><a href='delete.php?id={$result['id']}'>削除</a></td>
        ";
        echo $table_row;
     }
