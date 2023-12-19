@@ -6,8 +6,22 @@
         try {
             $pdo = new PDO($dsn, $user, $password);
 
-            // usersテーブルからid、name、ageカラムのデータを取得するためのSQL文を変数$sqlに代入する
-            $sql = 'SELECT id, name, age FROM users';
+            // orderパラメータの値が存在すれば（並び替えボタンを押したとき）、その値を変数$orderに代入する
+            if (isset($_GET['order'])) {
+                $order = $_GET['order'];
+            } else {
+                $order = NULL;
+            }
+
+            // orderパラメータの値によってSQL文を変更する
+            if ($order === 'asc') {
+                $sql = 'SELECT id, name, age FROM users ORDER BY age ASC';
+            } elseif ($order === 'desc') {
+                $sql = 'SELECT id, name, age FROM users ORDER BY age DESC';
+            } else {
+                $sql = 'SELECT id, name, age FROM users ORDER BY id';
+            }
+
 
             // SQL文を実行する
             $stmt = $pdo->query($sql);
@@ -30,7 +44,7 @@
 <body>
     <div class="sort">
         <a href="order-by.php?order=asc" class="sort-btn">年齢順（昇順）</a>
-        <a href="order-by.php?order=asc" class="sort-btn">年齢順（降順）</a>
+        <a href="order-by.php?order=desc" class="sort-btn">年齢順（降順）</a>
     </div>
 <table>
     <tr>
