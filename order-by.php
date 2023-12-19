@@ -28,6 +28,10 @@
     <title>PHP+DB</title>
 </head>
 <body>
+    <div class="sort">
+        <a href="order-by.php?order=asc" class="sort-btn">年齢順（昇順）</a>
+        <a href="order-by.php?order=asc" class="sort-btn">年齢順（降順）</a>
+    </div>
 <table>
     <tr>
         <th>ID</th>
